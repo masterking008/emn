@@ -1,0 +1,81 @@
+<nav [ngClass]="{'bg-white shadow-md': isScrolled, 'bg-transparent': !isScrolled}" 
+     class="fixed w-full z-50 transition-all duration-300">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="flex justify-between h-16">
+      <div class="flex items-center">
+        <a routerLink="/" class="flex-shrink-0 flex items-center">
+          <img class="h-8 w-auto" src="assets/logo.svg" alt="EMN Logo">
+          <span class="ml-2 text-xl font-bold text-indigo-600">EMN</span>
+        </a>
+      </div>
+      
+      <!-- Desktop menu -->
+      <div class="hidden md:flex items-center space-x-4">
+        <a routerLink="/" routerLinkActive="text-indigo-600" [routerLinkActiveOptions]="{exact: true}" 
+           class="px-3 py-2 rounded-md text-sm font-medium hover:text-indigo-600 transition-colors">Home</a>
+        <a routerLink="/about" routerLinkActive="text-indigo-600" 
+           class="px-3 py-2 rounded-md text-sm font-medium hover:text-indigo-600 transition-colors">About</a>
+        <a routerLink="/become-mentor" routerLinkActive="text-indigo-600" 
+           class="px-3 py-2 rounded-md text-sm font-medium hover:text-indigo-600 transition-colors">Become a Mentor</a>
+        <a routerLink="/get-mentor" routerLinkActive="text-indigo-600" 
+           class="px-3 py-2 rounded-md text-sm font-medium hover:text-indigo-600 transition-colors">Get a Mentor</a>
+        <a routerLink="/eureka" routerLinkActive="text-indigo-600" 
+           class="px-3 py-2 rounded-md text-sm font-medium hover:text-indigo-600 transition-colors">Eureka! Startups</a>
+        <a routerLink="/contact" routerLinkActive="text-indigo-600" 
+           class="px-3 py-2 rounded-md text-sm font-medium hover:text-indigo-600 transition-colors">Contact Us</a>
+        
+        <div class="ml-4">
+          <button *ngIf="!authService.isLoggedIn()" routerLink="/login" 
+                  class="bg-indigo-600 hover:bg-indigo-700 text-white px-4 py-2 rounded-md text-sm font-medium transition-colors">
+            Login
+          </button>
+          <button *ngIf="authService.isLoggedIn()" routerLink="/profile" 
+                  class="bg-indigo-600 hover:bg-indigo-700 text-white px-4 py-2 rounded-md text-sm font-medium transition-colors">
+            Profile
+          </button>
+        </div>
+      </div>
+      
+      <!-- Mobile menu button -->
+      <div class="flex md:hidden items-center">
+        <button (click)="toggleMenu()" class="inline-flex items-center justify-center p-2 rounded-md text-gray-700 hover:text-indigo-600 focus:outline-none">
+          <svg *ngIf="!isMenuOpen" class="h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+          </svg>
+          <svg *ngIf="isMenuOpen" class="h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+          </svg>
+        </button>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Mobile menu -->
+  <div *ngIf="isMenuOpen" class="md:hidden bg-white shadow-lg">
+    <div class="px-2 pt-2 pb-3 space-y-1">
+      <a routerLink="/" routerLinkActive="bg-indigo-100 text-indigo-600" [routerLinkActiveOptions]="{exact: true}" 
+         (click)="closeMenu()" class="block px-3 py-2 rounded-md text-base font-medium hover:bg-indigo-100 hover:text-indigo-600">Home</a>
+      <a routerLink="/about" routerLinkActive="bg-indigo-100 text-indigo-600" 
+         (click)="closeMenu()" class="block px-3 py-2 rounded-md text-base font-medium hover:bg-indigo-100 hover:text-indigo-600">About</a>
+      <a routerLink="/become-mentor" routerLinkActive="bg-indigo-100 text-indigo-600" 
+         (click)="closeMenu()" class="block px-3 py-2 rounded-md text-base font-medium hover:bg-indigo-100 hover:text-indigo-600">Become a Mentor</a>
+      <a routerLink="/get-mentor" routerLinkActive="bg-indigo-100 text-indigo-600" 
+         (click)="closeMenu()" class="block px-3 py-2 rounded-md text-base font-medium hover:bg-indigo-100 hover:text-indigo-600">Get a Mentor</a>
+      <a routerLink="/eureka" routerLinkActive="bg-indigo-100 text-indigo-600" 
+         (click)="closeMenu()" class="block px-3 py-2 rounded-md text-base font-medium hover:bg-indigo-100 hover:text-indigo-600">Eureka! Startups</a>
+      <a routerLink="/contact" routerLinkActive="bg-indigo-100 text-indigo-600" 
+         (click)="closeMenu()" class="block px-3 py-2 rounded-md text-base font-medium hover:bg-indigo-100 hover:text-indigo-600">Contact Us</a>
+      
+      <div class="pt-2">
+        <button *ngIf="!authService.isLoggedIn()" routerLink="/login" (click)="closeMenu()" 
+                class="w-full bg-indigo-600 hover:bg-indigo-700 text-white px-4 py-2 rounded-md text-sm font-medium transition-colors">
+          Login
+        </button>
+        <button *ngIf="authService.isLoggedIn()" routerLink="/profile" (click)="closeMenu()" 
+                class="w-full bg-indigo-600 hover:bg-indigo-700 text-white px-4 py-2 rounded-md text-sm font-medium transition-colors">
+          Profile
+        </button>
+      </div>
+    </div>
+  </div>
+</nav>
