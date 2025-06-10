@@ -41,7 +41,7 @@ export class AuthService {
   }
 
   login(email: string, password: string): Observable<any> {
-    return this.http.post<any>(`${this.baseUrl}/auth/login`, { email, password })
+    return this.http.post<any>(`${this.baseUrl}/auth/login/`, { email, password })
       .pipe(
         tap(response => {
           if (response && response.token) {
@@ -56,8 +56,8 @@ export class AuthService {
       );
   }
 
-  register(userData: any): Observable<any> {
-    return this.http.post<any>(`${this.baseUrl}/auth/register`, userData)
+  registerMentor(userData: any): Observable<any> {
+    return this.http.post<any>(`${this.baseUrl}/mentor-registration/`, userData)
       .pipe(
         catchError(error => {
           console.error('Registration error', error);
@@ -67,7 +67,7 @@ export class AuthService {
   }
 
   verifyEmail(email: string): Observable<any> {
-    return this.http.post<any>(`${this.baseUrl}/auth/verify-email`, { email })
+    return this.http.post<any>(`${this.baseUrl}/auth/verify-email/`, { email })
       .pipe(
         catchError(error => {
           console.error('Email verification error', error);
@@ -77,7 +77,7 @@ export class AuthService {
   }
 
   verifyOtp(email: string, otp: string): Observable<any> {
-    return this.http.post<any>(`${this.baseUrl}/auth/verify-otp`, { email, otp })
+    return this.http.post<any>(`${this.baseUrl}/auth/verify-otp/`, { email, otp })
       .pipe(
         catchError(error => {
           console.error('OTP verification error', error);

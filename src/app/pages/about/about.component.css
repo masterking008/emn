@@ -1,1 +1,12 @@
-/* Custom styles for about page if needed */
+.outline-font {
+  -webkit-text-stroke: 1px black;
+  color: transparent;
+}
+
+.clip-path-polygon {
+  clip-path: polygon(0 0, 100% 0, 95% 100%, 0% 100%);
+}
+
+.clip-path-polygon-reverse {
+  clip-path: polygon(5% 0, 100% 0, 100% 100%, 0% 100%);
+}

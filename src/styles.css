@@ -1,2 +1,147 @@
-/* You can add global styles to this file, and also import other style files */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap');
 @import "tailwindcss";
+
+/* Import Thunder font for headings */
+@font-face {
+  font-family: 'Thunder';
+  src: url('assets/Thunder-MediumLC.otf') format('opentype');
+  font-weight: 500;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'Thunder';
+  src: url('assets/Thunder-SemiBoldLC.otf') format('opentype');
+  font-weight: 600;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'Thunder';
+  src: url('assets/Thunder-BoldLC.otf') format('opentype');
+  font-weight: 700;
+  font-style: normal;
+}
+
+/* Import Neue Montreal font for normal text */
+@font-face {
+  font-family: 'Neue Montreal';
+  src: url('assets/NeueMontreal-Medium.otf') format('opentype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+
+
+/* Base styles */
+body, html {
+  font-family: 'Neue Montreal', sans-serif;
+  background-color: #000;
+  color: #fff;
+  margin: 0;
+  padding: 0;
+}
+
+/* Headings */
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'Thunder', Arial, Helvetica, sans-serif;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+}
+
+/* Glass effect */
+.glass {
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.glass-dark {
+  background: rgba(0, 0, 0, 0.7);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+/* Sharp edges */
+.sharp {
+  border-radius: 0 !important;
+}
+
+/* Button styles */
+.btn {
+  font-family: 'Thunder', Arial, Helvetica, sans-serif;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  transition: all 0.3s ease;
+  border: 1px solid #fff;
+}
+
+.btn-primary {
+  background-color: #000;
+  color: #fff;
+}
+
+.btn-primary:hover {
+  background-color: #fff;
+  color: #000;
+}
+
+.btn-secondary {
+  background-color: #fff;
+  color: #000;
+}
+
+.btn-secondary:hover {
+  background-color: #000;
+  color: #fff;
+}
+
+/* Section styles */
+.section-dark {
+  background-color: #000;
+  color: #fff;
+}
+
+.section-light {
+  background-color: #fff;
+  color: #000;
+}
+
+.poppins{
+  font-family: Poppins, sans-serif;
+  font-weight: 600;
+}
+
+/* Custom animations */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.animate-fade-in {
+  animation: fadeIn 0.8s ease forwards;
+}
+
+.outline-font{
+  color: transparent;
+  -webkit-text-stroke: 1px rgb(0, 0, 0);
+
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #000;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #fff;
+  border: 2px solid #000;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #888;
+}

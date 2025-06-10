@@ -1,64 +1,57 @@
-import { Component } from '@angular/core';
+import { Component, AfterViewInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { RouterModule } from '@angular/router';
-import { NavbarComponent } from '../../components/navbar/navbar.component';
+import { NavbarComponent } from '../../components/navbar.component';
+import { FooterComponent } from '../../components/footer.component';
 
 @Component({
   selector: 'app-about',
   standalone: true,
-  imports: [CommonModule, RouterModule, NavbarComponent],
+  imports: [CommonModule, NavbarComponent, FooterComponent],
   templateUrl: './about.component.html',
   styleUrls: ['./about.component.css']
 })
-export class AboutComponent {
-  team = [
-    {
-      name: 'Alex Johnson',
-      position: 'CEO & Founder',
-      bio: 'With over 15 years of industry experience, Alex has led EMN from a small startup to an industry leader.',
-      image: 'assets/team/alex.jpg'
-    },
-    {
-      name: 'Maria Rodriguez',
-      position: 'CTO',
-      bio: 'Maria brings technical expertise and innovation to our solutions, ensuring we stay at the cutting edge of technology.',
-      image: 'assets/team/maria.jpg'
-    },
-    {
-      name: 'David Chen',
-      position: 'Head of Operations',
-      bio: 'David ensures that our processes run smoothly and efficiently, delivering exceptional results to our clients.',
-      image: 'assets/team/david.jpg'
-    },
-    {
-      name: 'Sarah Williams',
-      position: 'Customer Success Manager',
-      bio: 'Sarah works closely with our clients to ensure they get the most value from our solutions and services.',
-      image: 'assets/team/sarah.jpg'
-    }
-  ];
+export class AboutComponent implements AfterViewInit {
+  entries = 0;
+  prizes = 0;
+  mentors = 0;
+  edition = 0;
 
-  contactInfo = [
-    {
-      title: 'Main Office',
-      address: '123 Business Avenue, New York, NY 10001',
-      phone: '(555) 123-4567',
-      email: 'info@emn.com',
-      hours: 'Monday-Friday: 9AM-6PM'
-    },
-    {
-      title: 'Support',
-      address: '',
-      phone: '(555) 987-6543',
-      email: 'support@emn.com',
-      hours: '24/7 Support Available'
-    },
-    {
-      title: 'Sales',
-      address: '',
-      phone: '(555) 456-7890',
-      email: 'sales@emn.com',
-      hours: 'Monday-Friday: 8AM-8PM'
-    }
-  ];
+  ngAfterViewInit() {
+    this.animateCountUp('entries', 27000);
+    this.animateCountUp('prizes', 2);
+    this.animateCountUp('mentors', 300);
+    this.animateCountUp('edition', 28);
+  }
+
+  animateCountUp(property: string, target: number) {
+    const duration = 2000; // 2 seconds
+    const frameDuration = 1000 / 60; // 60fps
+    const totalFrames = Math.round(duration / frameDuration);
+    let frame = 0;
+    
+    const counter = setInterval(() => {
+      frame++;
+      const progress = frame / totalFrames;
+      const currentCount = Math.round(progress * target);
+      
+      switch(property) {
+        case 'entries':
+          this.entries = currentCount;
+          break;
+        case 'prizes':
+          this.prizes = currentCount;
+          break;
+        case 'mentors':
+          this.mentors = currentCount;
+          break;
+        case 'edition':
+          this.edition = currentCount;
+          break;
+      }
+      
+      if (frame === totalFrames) {
+        clearInterval(counter);
+      }
+    }, frameDuration);
+  }
 }

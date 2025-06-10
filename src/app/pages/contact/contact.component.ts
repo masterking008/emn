@@ -2,14 +2,24 @@ import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { NavbarComponent } from '../../components/navbar/navbar.component';
+import { NavbarComponent } from '../../components/navbar.component';
+import { environment } from '../../../environments/environment';
+import { HttpClient } from '@angular/common/http';
+import { FooterComponent } from '../../components/footer.component';
+import { ContactCardComponent } from '../../components/contact-card.component';
 
 @Component({
   selector: 'app-contact',
   standalone: true,
-  imports: [CommonModule, RouterModule, ReactiveFormsModule, NavbarComponent],
+  imports: [
+    CommonModule, 
+    RouterModule, 
+    ReactiveFormsModule, 
+    NavbarComponent, 
+    FooterComponent,
+    ContactCardComponent
+  ],
   templateUrl: './contact.component.html',
-  styleUrls: ['./contact.component.css']
 })
 export class ContactComponent {
   contactForm: FormGroup;
@@ -48,7 +58,7 @@ export class ContactComponent {
     }
   ];
   
-  constructor(private fb: FormBuilder) {
+  constructor(private fb: FormBuilder, private http: HttpClient) {
     this.contactForm = this.fb.group({
       name: ['', Validators.required],
       email: ['', [Validators.required, Validators.email]],
@@ -62,14 +72,20 @@ export class ContactComponent {
       this.contactForm.markAllAsTouched();
       return;
     }
-    
     this.isSubmitting = true;
-    
-    // Simulate API call
-    setTimeout(() => {
-      this.isSubmitting = false;
-      this.submitSuccess = true;
-      this.contactForm.reset();
-    }, 1500);
+    this.submitSuccess = false;
+    this.submitError = false;
+    const formData = this.contactForm.value;
+    this.http.post(`${environment.BASE_URL}/contact/`, formData).subscribe({
+      next: () => {
+        this.isSubmitting = false;
+        this.submitSuccess = true;
+        this.contactForm.reset();
+      },
+      error: () => {
+        this.isSubmitting = false;
+        this.submitError = true;
+      }
+    });
   }
 }
