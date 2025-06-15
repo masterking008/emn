@@ -71,7 +71,8 @@ export class AuthService {
       .pipe(
         catchError(error => {
           console.error('Email verification error', error);
-          return of({ error: error.error?.message || 'Email verification failed' });
+          // Return the backend error message if available, otherwise a default message
+          return of({ error: error.error?.error || error.error?.message || 'Email verification failed' });
         })
       );
   }

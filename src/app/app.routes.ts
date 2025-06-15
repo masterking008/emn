@@ -17,16 +17,16 @@ export const routes: Routes = [
     path: 'get-mentor',
     loadComponent: () => import('./pages/get-mentor/get-mentor.component').then(m => m.GetMentorComponent)
   },
-  {
-    path: 'login',
-    loadComponent: () => import('./pages/login/login.component').then(m => m.LoginComponent)
-  },
+  // {
+  //   path: 'login',
+  //   loadComponent: () => import('./pages/login/login.component').then(m => m.LoginComponent)
+  // },
   {
     path: 'mentor-registration',
     loadComponent: () => import('./pages/mentor-registration/mentor-registration.component').then(m => m.MentorRegistrationComponent)
   },
   {
-    path: 'eureka',
+    path: 'eurekapastwinner',
     loadComponent: () => import('./pages/eureka/eureka.component').then(m => m.EurekaComponent)
   },
   {

@@ -1,30 +1,16 @@
   <app-navbar [forceDarkBg]="true"></app-navbar>
 
-<!-- Eureka! Startups Section: Past Winners -->
-
-<!-- <section class="relative bg-black text-white min-h-screen flex items-center justify-center overflow-hidden sharp">
-  <div class="absolute inset-0">
-    <img src="https://images.unsplash.com/photo-1465101046530-73398c7f28ca?auto=format&fit=crop&w=1500&q=80" alt="Eureka! Startups" class="w-full h-full object-cover object-center opacity-30" />
-    <div class="absolute inset-0 bg-black opacity-70"></div>
-  </div>
-  <div class="container mx-auto px-4 z-10 flex flex-col items-center justify-center">
-    <div class="flex flex-col items-center animate-fade-in">
-      <h1 class="text-7xl md:text-9xl font-bold mb-4 text-center drop-shadow-lg">EUREKA! STARTUP HALL OF FAME</h1>
-      <p class="text-xl md:text-3xl mb-8 text-center max-w-2xl">Celebrating the most innovative startups from past Eureka! competitions.</p>
-    </div>
-  </div>
-</section> -->
 
 <!-- <section class="py-16 section-light sharp"> -->
 <section
-  class="relative bg-white text-black min-h-screen flex items-center justify-center overflow-hidden sharp animate-fade-in"
+  class="relative bg-white text-black min-h-screen flex items-center justify-center overflow-hidden sharp"
 >
-  <div class="container mx-auto px-4 py-32">
+  <div class="container mx-auto px-4 py-32 animate-fade-in">
     <h2 class="text-7xl md:text-9xl font-bold text-center mb-12 text-black">
       PAST EUREKA! WINNERS
     </h2>
     <div
-      class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8"
+      class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-8"
     >
       <app-startup-card
         *ngFor="let startup of startups"

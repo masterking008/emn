@@ -1,1 +1,39 @@
-/* Custom styles for mentor registration page if needed */
+/* Custom styles for mentor registration */
+
+/* SweetAlert customization */
+:root {
+  --swal-font: 'Montserrat', sans-serif;
+}
+
+.swal-border-white {
+  border: 2px solid white !important;
+  border-radius: 0 !important;
+}
+
+.swal-title {
+  font-family: var(--swal-font) !important;
+  font-weight: 600 !important;
+}
+
+.swal-content {
+  font-family: var(--swal-font) !important;
+}
+
+/* Form styles */
+.sharp {
+  border-radius: 0 !important;
+}
+
+/* Animation */
+.animate-fade-in {
+  animation: fadeIn 0.5s ease-in-out;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}

@@ -3,10 +3,7 @@
   color: transparent;
 }
 
-.clip-path-polygon {
-  clip-path: polygon(0 0, 100% 0, 95% 100%, 0% 100%);
-}
-
-.clip-path-polygon-reverse {
-  clip-path: polygon(5% 0, 100% 0, 100% 100%, 0% 100%);
+.blend{
+height: 292px;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.00) 0%, #FFF 100%);
 }

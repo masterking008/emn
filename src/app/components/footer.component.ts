@@ -10,7 +10,7 @@ import { Component } from '@angular/core';
           <!-- Logo & Description -->
           <div class="lg:col-span-8 flex flex-col items-center lg:block">
             <a href="https://www.ecell.in/" target="_blank" class="block">
-              <img src="https://eureka2022.s3.ap-south-1.amazonaws.com/ecell-logo2.png" alt="E-Cell Logo" class="w-[300px] -ml-4">
+              <img src="https://eureka2022.s3.ap-south-1.amazonaws.com/ecell-logo2.png" alt="E-Cell Logo" class="w-[300px] -ml-4" draggable="false">
             </a>
             <p class=" text-white mt-4 max-w-md">
               E-Cell IIT Bombay is Asia's Largest Entrepreneurship-promoting student
@@ -25,11 +25,13 @@ import { Component } from '@angular/core';
             <nav class="flex flex-col space-y-2">
               <a href="https://www.ecell.in/esummit/" target="_blank" class="text-white hover:text-gray-300">E-Summit</a>
               <a href="https://www.ecell.in/eureka/" target="_blank" class="text-white hover:text-gray-300">Eureka!</a>
-              <a href="https://ecell.in/eurekajunior/" target="_blank" class="text-white hover:text-gray-300">Eureka! Junior</a>
+              <!-- <a href="https://ecell.in/eurekajunior/" target="_blank" class="text-white hover:text-gray-300">Eureka! Junior</a> -->
               <a href="https://www.ecell.in/eurekagcc" target="_blank" class="text-white hover:text-gray-300">Eureka! GCC</a>
               <a href="https://www.ecell.in/nec/" target="_blank" class="text-white hover:text-gray-300">NEC</a>
-              <a href="https://www.ecell.in/necjunior/" target="_blank" class="text-white hover:text-gray-300">NEC Junior</a>
+              <!-- <a href="https://www.ecell.in/necjunior/" target="_blank" class="text-white hover:text-gray-300">NEC Junior</a> -->
               <a href="https://www.ecell.in/illuminate" target="_blank" class="text-white hover:text-gray-300">illuminate</a>
+              <a href="https://www.ecell.in/fincof" target="_blank" class="text-white hover:text-gray-300">FInCoF</a>
+              <a href="https://www.ecell.in/nextco" target="_blank" class="text-white hover:text-gray-300">NextCo</a>
               <a href="https://ecell.in/ca/" target="_blank" class="text-white hover:text-gray-300">Campus Ambassador</a>
             </nav>
           </div>

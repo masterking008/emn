@@ -3,7 +3,7 @@
 <!-- Become a Mentor Hero Section with black background -->
 <section class="relative bg-black text-white min-h-screen flex items-center justify-center overflow-hidden sharp">
   <div class="absolute inset-0">
-    <img src="https://images.unsplash.com/photo-1515378791036-0648a3ef77b2?auto=format&fit=crop&w=1500&q=80" alt="Become a Mentor" class="w-full h-full object-cover object-center opacity-30" />
+    <img src="assets/mentor.jpg" alt="Become a Mentor" class="w-full h-full object-cover object-center opacity-60" />
     <div class="absolute inset-0 bg-black opacity-70"></div>
   </div>
   <div class="container mx-auto px-4 z-10 flex flex-col items-center justify-center">
@@ -12,43 +12,53 @@
       <p class="text-xl md:text-3xl mb-8 text-center max-w-2xl">Join Eureka! 2025 and help shape the next generation of startups.</p>
     </div>
     <div class="text-center">
-        <button routerLink="/mentor-registration" class="bg-white text-black hover:bg-gray-200 px-8 py-3 font-medium text-lg transition-colors sharp border border-white animate-fade-in">
+        <button routerLink="/mentor-registration" class="btn bg-white text-black hover:bg-gray-200 px-8 py-3 font-medium text-lg transition-colors sharp border border-white animate-fade-in cursor-pointer">
           REGISTER AS A MENTOR
         </button>
       </div>
+        <a (click)="scrollToBottom()" class="arrow-down animate-bounce absolute z-50 bottom-2 left-1/2 cursor-pointer text-[50px] pr-2">
+    <i class="fa-sharp fa-solid fa-arrow-down"></i>
+  </a>
   </div>
   
 </section>
-
 <!-- Who Can Become a Mentor Section -->
-<section class="py-16 section-light sharp">
-  <div class="container mx-auto px-4">
+<section class="py-16 relative section-light sharp overflow-hidden" #notified>
+  <div class="absolute inset-0 w-full h-full z-0 pointer-events-none">
+    <video 
+      src="https://2k21.s3.ap-south-1.amazonaws.com/emn/Hero.mp4"  
+      autoplay 
+      muted 
+      loop 
+      playsinline
+      preload="auto"
+      class="w-full h-full object-cover"
+    ></video>
+    <div class="absolute inset-0 bg-white/80"></div>
+  </div>
+  <div class="container mx-auto px-4 relative z-10">
     <div class="max-w-4xl mx-auto">
       <h2 class="text-7xl md:text-9xl font-bold mb-8 text-black text-center">WHO CAN BECOME A MENTOR?</h2>
-      
       <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-12">
-        <div class="bg-white p-6 sharp border border-black">
+        <div class="bg-white/80 p-6 sharp border border-black">
           <h3 class="text-xl md:text-3xl font-bold mb-4 text-black">Industry Experts</h3>
           <p class="text-xl md:text-2xl text-black mb-4">
             Professionals with significant experience in their respective industries who can provide valuable insights and guidance to startups.
           </p>
         </div>
-        
-        <div class="bg-white p-6 sharp border border-black">
+        <div class="bg-white/80 p-6 sharp border border-black">
           <h3 class="text-xl md:text-3xl font-bold mb-4 text-black">Successful Entrepreneurs</h3>
           <p class="text-xl md:text-2xl text-black mb-4">
             Founders who have built and scaled successful businesses and can share their journey, challenges, and lessons learned.
           </p>
         </div>
-        
-        <div class="bg-white p-6 sharp border border-black">
+        <div class="bg-white/80 p-6 sharp border border-black">
           <h3 class="text-xl md:text-3xl font-bold mb-4 text-black">Investors</h3>
           <p class="text-xl md:text-2xl text-black mb-4">
             Angel investors, VCs, and investment professionals who can provide funding perspectives and help startups become investment-ready.
           </p>
         </div>
-        
-        <div class="bg-white p-6 sharp border border-black">
+        <div class="bg-white/80 p-6 sharp border border-black">
           <h3 class="text-xl md:text-3xl font-bold mb-4 text-black">Domain Specialists</h3>
           <p class="text-xl md:text-2xl text-black">
             Experts in specific domains such as technology, marketing, finance, legal, or operations who can provide specialized guidance.

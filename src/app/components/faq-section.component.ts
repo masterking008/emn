@@ -1,5 +1,13 @@
 import { Component, Input } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { ApiService } from '../services/api.service';
+
+interface FAQ {
+  question: string;
+  answer: string;
+  order: number;
+  open?: boolean; // Added for UI state
+}
 
 @Component({
   selector: 'app-faq-section',
@@ -21,10 +29,9 @@ import { CommonModule } from '@angular/common';
               (click)="toggleFaq(i)"
               class="w-full flex justify-between items-center py-4 text-left focus:outline-none transition-colors duration-300"
             >
-              <span
-                class="font-semibold text-xl md:text-2xl text-black pr-4"
-                >{{ faq.question }}</span
-              >
+              <span class="font-semibold text-xl md:text-2xl text-black pr-4">{{
+                faq.question
+              }}</span>
               <svg
                 [ngClass]="{
                   'transform rotate-180': faq.open
@@ -66,38 +73,22 @@ import { CommonModule } from '@angular/common';
   styles: [],
 })
 export class FaqSectionComponent {
-  faqs: Array<{ question: string; answer: string; open: boolean }> = [
-    {
-      question: 'How does the mentorship matching process work?',
-      answer:
-        'Our platform uses a sophisticated algorithm to match startups with mentors based on industry, expertise, goals, and preferences. Both parties can review profiles before confirming the mentorship relationship.',
-      open: false,
-    },
-    {
-      question: 'How long does a typical mentorship last?',
-      answer:
-        'Mentorship durations are flexible and can range from short-term (1-3 months) to long-term (6-12 months) depending on the needs of the startup and availability of the mentor.',
-      open: false,
-    },
-    {
-      question: 'Is there a cost associated with getting a mentor?',
-      answer:
-        'The Eureka! Mentorship Network provides free mentorship as part of our commitment to fostering innovation and entrepreneurship in the ecosystem.',
-      open: false,
-    },
-    {
-      question: 'Can I request a specific mentor?',
-      answer:
-        'Yes, startups can browse mentor profiles and request specific mentors based on their expertise and background. The mentor will then review your request and decide if they can provide value to your startup.',
-      open: false,
-    },
-    {
-      question: 'How often do mentorship sessions take place?',
-      answer:
-        "The frequency of sessions is determined by both the mentor and mentee, typically ranging from weekly to monthly meetings depending on the startup's needs and the mentor's availability.",
-      open: false,
-    },
-  ];
+  // Define FAQ interface based on Django model
+
+  @Input() faqs: FAQ[] = []; // Will be populated from API
+
+  constructor(private apiService: ApiService) {}
+
+  ngOnInit() {
+    this.apiService.getFAQs().subscribe((faqs: FAQ[]) => {
+      this.faqs = faqs
+        .map((faq) => ({
+          ...faq,
+          open: false, // Add UI state
+        }))
+        .sort((a, b) => a.order -b.order); // Sort by order descending to match Django model
+    });
+  }
 
   toggleFaq(index: number): void {
     this.faqs[index].open = !this.faqs[index].open;

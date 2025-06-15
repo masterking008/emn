@@ -1,6 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap');
 @import "tailwindcss";
 
+
 /* Import Thunder font for headings */
 @font-face {
   font-family: 'Thunder';
@@ -33,7 +34,7 @@
 
 /* Base styles */
 body, html {
-  font-family: 'Neue Montreal', sans-serif;
+  font-family: Poppins , sans-serif;
   background-color: #000;
   color: #fff;
   margin: 0;
@@ -70,10 +71,10 @@ h1, h2, h3, h4, h5, h6 {
 /* Button styles */
 .btn {
   font-family: 'Thunder', Arial, Helvetica, sans-serif;
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
   transition: all 0.3s ease;
-  border: 1px solid #fff;
+  font-weight: 600;
+  font-size: 1.5rem;
+  padding-bottom: 0.4rem;
 }
 
 .btn-primary {
@@ -128,7 +129,23 @@ h1, h2, h3, h4, h5, h6 {
 
 }
 
-/* Custom scrollbar */
+
+
+/* SweetAlert customization */
+/* .swal-border-white {
+  border: 2px solid white !important;
+  border-radius: 0 !important;
+}
+
+.swal-title {
+  font-family: 'Montserrat', sans-serif !important;
+  font-weight: 600 !important;
+}
+
+.swal-content {
+  font-family: 'Montserrat', sans-serif !important;
+} */
+
 ::-webkit-scrollbar {
   width: 8px;
 }

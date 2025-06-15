@@ -2,6 +2,7 @@ import { Component, HostListener, Input } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { AuthService } from '../services/auth.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-navbar',
@@ -9,17 +10,17 @@ import { AuthService } from '../services/auth.service';
   imports: [CommonModule, RouterModule],
   template: `<nav
   [ngClass]="{
-    'glass-dark shadow-md': isScrolled,
-    'bg-black': forceDarkBg,
+    'glass-dark shadow-md': isScrolled && !isMenuOpen,
+    'bg-black': forceDarkBg || isMenuOpen,
     'bg-transparent': !isScrolled && !forceDarkBg
   }"
-  class="fixed w-dvw z-50 sharp"
+  class="fixed w-dvw z-[1000] sharp"
 >
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
     <div class="flex justify-between h-20 ">
       <div class="flex items-center">
-        <a routerLink="/" class="flex-shrink-0 flex items-center">
-          <img class="h-12" src="assets/logo.webp" alt="EMN Logo" />
+        <a href="http://ecell.in/" class="flex-shrink-0 flex items-center">
+          <img class="h-12" src="assets/logo.webp" alt="E-Cell Logo" />
         </a>
       </div>
 
@@ -53,7 +54,7 @@ import { AuthService } from '../services/auth.service';
           >GET A MENTOR</a
         >
         <a
-          routerLink="/eureka"
+          routerLink="/eurekapastwinner"
           routerLinkActive="text-white"
           class="px-2 sm:px-3 py-1 sm:py-2 text-md sm:text-md font-medium hover:text-gray-300 transition-colors sharp text-center"
           >EUREKA! STARTUPS</a
@@ -70,15 +71,22 @@ import { AuthService } from '../services/auth.service';
       <div class="hidden lg:flex items-center space-x-4">
         <button
           *ngIf="!authService.isLoggedIn()"
+          routerLink="/mentor-registration"
+          class="btn bg-white text-black hover:bg-gray-200 px-3 sm:px-4 py-1 sm:py-2 text-md sm:text-md font-medium transition-colors sharp border border-white cursor-pointer"
+        >
+          MENTOR REGISTRATION
+        </button>
+        <!-- <button
+          *ngIf="!authService.isLoggedIn()"
           routerLink="/login"
-          class="bg-white text-black hover:bg-gray-200 px-3 sm:px-4 py-1 sm:py-2 text-md sm:text-md font-medium transition-colors sharp border border-white"
+          class="btn bg-white text-black hover:bg-gray-200 px-3 sm:px-4 py-1 sm:py-2 text-md sm:text-md font-medium transition-colors sharp border border-white cursor-pointer"
         >
           LOGIN
-        </button>
+        </button> -->
         <button
           *ngIf="authService.isLoggedIn()"
           routerLink="/profile"
-          class="bg-white text-black hover:bg-gray-200 px-3 sm:px-4 py-1 sm:py-2 text-md sm:text-md font-medium transition-colors sharp border border-white"
+          class="btn bg-white text-black hover:bg-gray-200 px-3 sm:px-4 py-1 sm:py-2 text-md sm:text-md font-medium transition-colors sharp border border-white cursor-pointer"
         >
           PROFILE
         </button>
@@ -88,15 +96,22 @@ import { AuthService } from '../services/auth.service';
       <div class="flex lg:hidden items-center">
         <button
           *ngIf="!authService.isLoggedIn()"
+          routerLink="/mentor-registration"
+          class="btn bg-white text-black hover:bg-gray-200 px-3 sm:px-4 py-2 sm:py-2 text-md sm:text-md font-medium transition-colors sharp border border-white cursor-pointer"
+        >
+          MENTOR REGISTRATION
+        </button>
+        <!-- <button
+          *ngIf="!authService.isLoggedIn()"
           routerLink="/login"
-          class="bg-white text-black hover:bg-gray-200 px-3 sm:px-4 py-1 sm:py-2 text-md sm:text-md font-medium transition-colors sharp border border-white"
+          class="btn bg-white text-black hover:bg-gray-200 px-3 sm:px-4 py-1 sm:py-2 text-md sm:text-md font-medium transition-colors sharp border border-white cursor-pointer"
         >
           LOGIN
-        </button>
+        </button> -->
         <button
           *ngIf="authService.isLoggedIn()"
           routerLink="/profile"
-          class="bg-white text-black hover:bg-gray-200 px-3 sm:px-4 py-1 sm:py-2 text-md sm:text-md font-medium transition-colors sharp border border-white"
+          class="btn bg-white text-black hover:bg-gray-200 px-3 sm:px-4 py-1 sm:py-2 text-md sm:text-md font-medium transition-colors sharp border border-white cursor-pointer"
         >
           PROFILE
         </button>
@@ -140,7 +155,7 @@ import { AuthService } from '../services/auth.service';
   </div>
 
   <!-- Mobile menu -->
-  <div *ngIf="isMenuOpen" class="lg:hidden glass-dark shadow-lg sharp">
+  <div *ngIf="isMenuOpen" class="lg:hidden bg-black shadow-lg sharp">
     <div class="px-2 pt-2 pb-3 space-y-1">
       <a
         routerLink="/"
@@ -172,7 +187,7 @@ import { AuthService } from '../services/auth.service';
         >GET A MENTOR</a
       >
       <a
-        routerLink="/eureka"
+        routerLink="/eurekapastwinner"
         routerLinkActive="bg-white text-black"
         (click)="closeMenu()"
         class="block px-2 sm:px-3 py-1 sm:py-2 text-md sm:text-base font-medium hover:bg-white hover:text-black sharp text-center"
@@ -209,5 +224,14 @@ export class NavbarComponent {
 
   closeMenu() {
     this.isMenuOpen = false;
+  }
+
+  login(){
+    Swal.fire({
+      title: 'Dashboard',
+      text: 'Coming soon!',
+      icon: 'info',
+      confirmButtonText: 'OK'
+    });
   }
 }
