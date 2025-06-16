@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, ElementRef, ViewChild, AfterViewInit, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterLink } from '@angular/router';
 import Swal from 'sweetalert2';
@@ -8,34 +8,30 @@ import Swal from 'sweetalert2';
   standalone: true,
   imports: [CommonModule, RouterLink],
   template: `
-<section class=" hero relative text-white min-h-screen flex items-center justify-center overflow-hidden sharp ">
-  <!-- Video Background -->
+<section class="hero relative text-white min-h-screen flex items-center justify-center overflow-hidden sharp">
   <video 
+    #heroVideo
     src="https://2k21.s3.ap-south-1.amazonaws.com/emn/Hero.mp4"  
     autoplay 
     muted 
     loop 
     playsinline
     preload="auto"
-    class="absolute bottom-0 lg:-bottom-50 w-full object-cover z-0 invert "
+    class="absolute bottom-70 lg:-bottom-50 w-full object-cover z-0 invert"
     style="pointer-events: none;"
   ></video>
 
-  <div class="container mx-auto px-4 z-10 flex flex-col ">
-    <div class="flex flex-col items-center lg:absolute lg:top-20 lg:left-1/2 lg:-translate-x-1/2 animate-fade-in">
-      <!-- EMN Logo -->
-      <img src="assets/emn.png" alt="EMN Logo" class="h-72 lg:h-96 w-auto drop-shadow-lg object-contain" draggable="false"/>
+  <div class="container mx-auto px-4 z-10 flex flex-col">
+    <div class="flex flex-col items-center lg:absolute lg:top-30 lg:left-1/2 lg:-translate-x-1/2 animate-fade-in">
+      <img src="assets/emn.png" alt="EMN Logo" class="h-64 lg:h-84 w-auto drop-shadow-lg object-contain" draggable="false"/>
       <div class="flex flex-wrap gap-4 justify-center">
-        <!-- <a routerLink="/login" class="btn bg-white text-black hover:bg-gray-200 px-8 py-3 font-medium text-lg transition-colors shadow-lg sharp border border-white">LOGIN</a> -->
         <a class="btn bg-white text-black hover:bg-gray-200 px-8 py-3 font-medium text-lg transition-colors shadow-lg sharp border border-white" (click)="login()">LOGIN</a>
-        <a routerLink="/become-mentor" class=" btn bg-transparent backdrop-blur-2xl border border-white hover:bg-white hover:text-black px-8 py-3 font-medium text-lg transition-colors shadow-lg sharp">BECOME A MENTOR</a>
+        <a routerLink="/become-mentor" class="btn bg-transparent backdrop-blur-2xl border border-white hover:bg-white hover:text-black px-8 py-3 font-medium text-lg transition-colors shadow-lg sharp">BECOME A MENTOR</a>
       </div>
     </div>
   </div>
 </section>
-
-
-  `,
+`,
   styles: [`
 .hero {
   background: linear-gradient(
@@ -51,14 +47,44 @@ import Swal from 'sweetalert2';
 }
 `]
 })
-export class HeroSectionComponent {
+export class HeroSectionComponent implements AfterViewInit, OnInit {
+  @ViewChild('heroVideo') heroVideo!: ElementRef<HTMLVideoElement>;
+  
+  ngOnInit() {
+    // Use only link preload - more efficient than creating a video element
+    if (typeof document !== 'undefined') {
+      const link = document.createElement('link');
+      link.rel = 'preload';
+      link.href = 'https://2k21.s3.ap-south-1.amazonaws.com/emn/Hero.mp4';
+      link.as = 'video';
+      document.head.appendChild(link);
+    }
+  }
 
-    login(){
-      Swal.fire({
-        title: 'Dashboard Coming Soon',
-        // text: 'Coming soon!',
-        icon: 'info',
-        confirmButtonText: 'OK'
+  ngAfterViewInit() {
+    const video = this.heroVideo.nativeElement;
+    
+    // Ensure video is muted (critical for autoplay)
+    video.muted = true;
+    
+    // Single play attempt with fallback
+    const playPromise = video.play();
+    if (playPromise !== undefined) {
+      playPromise.catch(() => {
+        // If autoplay fails, try once on user interaction
+        document.addEventListener('click', () => {
+          video.play();
+        }, { once: true });
       });
     }
+  }
+
+  login() {
+    Swal.fire({
+      title: 'Dashboard Coming Soon',
+      icon: 'info',
+      confirmButtonText: 'OK'
+    });
+    // window.location.href = '/emn/login';
+  }
 }

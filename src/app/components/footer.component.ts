@@ -57,7 +57,7 @@ import { Component } from '@angular/core';
             <!-- Contact -->
             <div class="text-center lg:text-left mb-4 lg:mb-0">
               <h4 class="text-2xl text-white ">CONTACT US:</h4>
-              <a href="mailto:junior@ecell.in" target="_blank" class="text-white hover:text-gray-300 underline mt-1 block">
+              <a href="mailto:emn@ecell.in" target="_blank" class="text-white hover:text-gray-300 underline mt-1 block">
                 emn&#64;ecell.in
               </a>
             </div>

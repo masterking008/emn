@@ -10,6 +10,7 @@ import {
 import { NavbarComponent } from '../../components/navbar.component';
 import { AuthService } from '../../services/auth.service';
 import { FooterComponent } from '../../components/footer.component';
+import { OtpInputComponent } from '../../components/otp-input.component';
 import Swal from 'sweetalert2';
 
 @Component({
@@ -21,6 +22,7 @@ import Swal from 'sweetalert2';
     ReactiveFormsModule,
     NavbarComponent,
     FooterComponent,
+    OtpInputComponent,
   ],
   templateUrl: './mentor-registration.component.html',
   styleUrls: ['./mentor-registration.component.css'],
@@ -110,6 +112,13 @@ export class MentorRegistrationComponent implements OnInit {
     'logistics',
   ];
 
+  // Available sectors for each dropdown
+  availableSectors = {
+    sector1: [...this.sectors],
+    sector2: [...this.sectors],
+    sector3: [...this.sectors],
+  };
+
   stakeholderTypes = [
     { value: 'angel_investor', label: 'Angel Investor' },
     { value: 'startup_mentor', label: 'Startup Mentor' },
@@ -129,6 +138,9 @@ export class MentorRegistrationComponent implements OnInit {
   ngOnInit() {
     // Check if there's saved form data in localStorage
     this.checkSavedFormData();
+
+    // Initialize available sectors
+    this.updateAvailableSectors();
   }
 
   constructor(private fb: FormBuilder, private authService: AuthService) {
@@ -148,17 +160,10 @@ export class MentorRegistrationComponent implements OnInit {
       stakeholder_types: [[], Validators.required],
       other_stakeholder_type: [''],
       state: ['', Validators.required],
+      city: [''],
       organization_name: ['', Validators.required],
       association_interest: ['', Validators.required],
-      linkedin_url: [
-        '',
-        [
-          Validators.required,
-          Validators.pattern(
-            '^(https?://)?(www.)?linkedin.com/in/[A-Za-z0-9_-]+/?$'
-          ),
-        ],
-      ],
+      linkedin_url: ['', [Validators.required]],
     });
     this.mentorshipForm = this.fb.group({
       networking_cities: [[], Validators.required],
@@ -189,16 +194,17 @@ export class MentorRegistrationComponent implements OnInit {
       (response) => {
         this.isLoading = false;
         if (response.error) {
+          console.log('Validation errors:', response.error); // Debug log
           Swal.fire({
             icon: 'error',
             title: 'Error',
-            text: response.error,
+            text: response.error.email,
             background: '#333',
             color: '#fff',
             confirmButtonColor: '#fff',
             confirmButtonText: '<span class="text-black">OK</span>',
           });
-          this.errorMessage = response.error;
+          this.errorMessage = response.error.email;
         } else {
           Swal.fire({
             icon: 'success',
@@ -216,18 +222,72 @@ export class MentorRegistrationComponent implements OnInit {
       },
       (error) => {
         this.isLoading = false;
+        let errorMessage = 'Failed to send OTP. Please try again.';
+
+        // console.log('Server validation errors:', error.error); // Debug log
+
+        if (error.error && error.error.email && error.error.email.length > 0) {
+          errorMessage = error.error.email[0];
+        }
+
         Swal.fire({
           icon: 'error',
           title: 'Error',
-          text: 'Failed to send OTP. Please try again.',
+          text: errorMessage,
           background: '#333',
           color: '#fff',
           confirmButtonColor: '#fff',
           confirmButtonText: '<span class="text-black">OK</span>',
         });
-        this.errorMessage = 'Failed to send OTP. Please try again.';
+        this.errorMessage = errorMessage;
       }
     );
+  }
+
+  // Handle OTP input change
+  onOtpChange(otp: string) {
+    this.emailForm.get('otp')?.setValue(otp);
+    this.emailForm.get('otp')?.markAsTouched();
+  }
+
+  // Update available sectors based on current selections
+  updateAvailableSectors() {
+    // Reset all available sectors
+    this.availableSectors = {
+      sector1: [...this.sectors],
+      sector2: [...this.sectors],
+      sector3: [...this.sectors],
+    };
+
+    const sector1Value = this.mentorshipForm.get('preferred_sector_1')?.value;
+    const sector2Value = this.mentorshipForm.get('preferred_sector_2')?.value;
+
+    // Remove selected sectors from other dropdowns
+    if (sector1Value) {
+      this.availableSectors.sector2 = this.sectors.filter(
+        (s) => s !== sector1Value
+      );
+      this.availableSectors.sector3 = this.sectors.filter(
+        (s) => s !== sector1Value
+      );
+
+      // Reset sector2 if it's the same as sector1
+      if (sector1Value === sector2Value) {
+        this.mentorshipForm.get('preferred_sector_2')?.setValue('');
+      }
+    }
+
+    if (sector2Value) {
+      this.availableSectors.sector3 = this.availableSectors.sector3.filter(
+        (s) => s !== sector2Value
+      );
+
+      // Reset sector3 if it's the same as sector2
+      const sector3Value = this.mentorshipForm.get('preferred_sector_3')?.value;
+      if (sector2Value === sector3Value) {
+        this.mentorshipForm.get('preferred_sector_3')?.setValue('');
+      }
+    }
   }
 
   // Step 1: Verify OTP
@@ -289,6 +349,10 @@ export class MentorRegistrationComponent implements OnInit {
     );
   }
 
+  profileImagePreview: string | null = null;
+  profileImageName: string | null = null;
+  imageUploading = false;
+
   // Handle file upload
   onFileSelected(event: any) {
     const file = event.target.files[0];
@@ -307,17 +371,40 @@ export class MentorRegistrationComponent implements OnInit {
         this.errorMessage = 'File size should not exceed 10MB';
         return;
       }
-      this.mentorshipForm.patchValue({
-        profile_image: file,
-      });
-      this.saveFormData();
+
+      this.imageUploading = true;
+      this.profileImageName = file.name;
+
+      // Create preview
+      const reader = new FileReader();
+      reader.onload = (e: any) => {
+        this.profileImagePreview = e.target.result;
+        this.mentorshipForm.patchValue({
+          profile_image: file,
+        });
+        this.saveFormData();
+        this.imageUploading = false;
+      };
+      reader.readAsDataURL(file);
     }
   }
+  formSubmitted = false;
 
   // Submit the form
   submitForm() {
+    this.formSubmitted = true;
+
     if (this.mentorshipForm.invalid) {
-      this.mentorshipForm.markAllAsTouched();
+      return;
+    }
+
+    if (!this.profileImagePreview) {
+      Swal.fire({
+        icon: 'error',
+        title: 'Profile Image Required',
+        text: 'Please upload your profile image to complete registration.',
+        confirmButtonText: 'OK',
+      });
       return;
     }
 
@@ -357,10 +444,10 @@ export class MentorRegistrationComponent implements OnInit {
       }
     });
 
-    // Log FormData key-value pairs
-    for (const pair of formData.entries()) {
-      console.log(pair[0] + ':', pair[1]);
-    }
+    // // Log FormData key-value pairs
+    // for (const pair of formData.entries()) {
+    //   console.log(pair[0] + ':', pair[1]);
+    // }
 
     // Call API to register mentor
     this.authService.registerMentor(formData).subscribe(
@@ -398,7 +485,7 @@ export class MentorRegistrationComponent implements OnInit {
             this.successMessage = '';
             this.errorMessage = '';
             // Redirect to home
-            window.location.href = '/';
+            window.location.href = '/emn';
           });
           this.successMessage =
             'Registration successful! Thank you for joining as a mentor.';
@@ -425,10 +512,31 @@ export class MentorRegistrationComponent implements OnInit {
     if (this.currentStep < this.totalSteps) {
       if (this.currentStep === 1 && this.emailForm.invalid) {
         this.emailForm.markAllAsTouched();
+
+        // Get specific error messages
+        let errorMessages = [];
+        if (this.emailForm.get('email')?.errors?.['required']) {
+          errorMessages.push('Email is required');
+        } else if (this.emailForm.get('email')?.errors?.['email']) {
+          errorMessages.push('Please enter a valid email address');
+        }
+
+        if (this.emailForm.get('otp')?.errors?.['required']) {
+          errorMessages.push('OTP is required');
+        } else if (
+          this.emailForm.get('otp')?.errors?.['minlength'] ||
+          this.emailForm.get('otp')?.errors?.['maxlength']
+        ) {
+          errorMessages.push('OTP must be 6 digits');
+        }
+
         Swal.fire({
           icon: 'warning',
           title: 'Validation Error',
-          text: 'Please complete all required fields correctly.',
+          html:
+            errorMessages.length > 0
+              ? errorMessages.map((msg) => `• ${msg}`).join('<br>')
+              : 'Please complete all required fields correctly.',
           background: '#333',
           color: '#fff',
           confirmButtonColor: '#fff',
@@ -436,13 +544,63 @@ export class MentorRegistrationComponent implements OnInit {
         });
         return;
       }
+
       if (this.currentStep === 2 && this.basicDetailsForm.invalid) {
         this.basicDetailsForm.markAllAsTouched();
-        console.log(this.basicDetailsForm.value);
+
+        // Get specific error messages
+        let errorMessages = [];
+        if (this.basicDetailsForm.get('full_name')?.errors?.['required']) {
+          errorMessages.push('Full name is required');
+        }
+
+        if (this.basicDetailsForm.get('phone_number')?.errors?.['required']) {
+          errorMessages.push('Phone number is required');
+        } else if (
+          this.basicDetailsForm.get('phone_number')?.errors?.['pattern']
+        ) {
+          errorMessages.push('Please enter a valid 10-digit phone number');
+        }
+
+        if (
+          this.basicDetailsForm.get('stakeholder_types')?.errors?.['required']
+        ) {
+          errorMessages.push('Please select at least one stakeholder type');
+        }
+
+        if (this.basicDetailsForm.get('state')?.errors?.['required']) {
+          errorMessages.push('State is required');
+        }
+
+        if (
+          this.basicDetailsForm.get('organization_name')?.errors?.['required']
+        ) {
+          errorMessages.push('Organization name is required');
+        }
+
+        if (
+          this.basicDetailsForm.get('association_interest')?.errors?.[
+            'required'
+          ]
+        ) {
+          errorMessages.push('Please select an association interest option');
+        }
+
+        if (this.basicDetailsForm.get('linkedin_url')?.errors?.['required']) {
+          errorMessages.push('LinkedIn URL is required');
+        } else if (
+          this.basicDetailsForm.get('linkedin_url')?.errors?.['pattern']
+        ) {
+          errorMessages.push('Please enter a valid LinkedIn URL');
+        }
+
         Swal.fire({
           icon: 'warning',
           title: 'Validation Error',
-          text: 'Please complete all required fields correctly.',
+          html:
+            errorMessages.length > 0
+              ? errorMessages.map((msg) => `• ${msg}`).join('<br>')
+              : 'Please complete all required fields correctly.',
           background: '#333',
           color: '#fff',
           confirmButtonColor: '#fff',
@@ -635,8 +793,8 @@ export class MentorRegistrationComponent implements OnInit {
         cancelButtonText: 'No, start fresh',
         background: '#333',
         color: '#fff',
-        confirmButtonColor: '#fff',
-        cancelButtonColor: '#000',
+        confirmButtonColor: '#000',
+        cancelButtonColor: '#1e1e1e',
       }).then((result) => {
         if (result.isConfirmed) {
           this.restoreFormData(savedData);

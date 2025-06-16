@@ -25,6 +25,7 @@ export class GetMentorComponent {
   isSubmitting = false;
   notifySuccess = false;
   notifyError = false;
+  responseDetail = '';
 
   @ViewChild('notified') notified: any;
 
@@ -51,20 +52,22 @@ export class GetMentorComponent {
     this.http
       .post<{detail: string}>(`${environment.BASE_URL}/get-a-mentor-email/`, {
         email: this.notifyEmail,
+        name: 'There' // Adding default name as per backend
       })
       .subscribe({
         next: (response) => {
           this.isSubmitting = false;
           this.notifySuccess = true;
           this.notifyEmail = '';
-          // Handle success message from API
+          this.responseDetail = response.detail;
           console.log(response.detail);
         },
         error: (error) => {
           this.isSubmitting = false;
           this.notifyError = true;
+          // Will receive validation errors from serializer if any
           console.error('Error submitting form:', error);
         },
       });
     }
-}
+  }

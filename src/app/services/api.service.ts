@@ -54,6 +54,7 @@ export class ApiService {
 
   constructor(private http: HttpClient) { }
 
+  // Content endpoints
   getFAQs(): Observable<FAQ[]> {
     return this.http.get<FAQ[]>(`${this.baseUrl}/faqs/`);
   }

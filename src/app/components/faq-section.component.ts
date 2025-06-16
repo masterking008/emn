@@ -22,12 +22,12 @@ interface FAQ {
         <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
           <div
             *ngFor="let faq of faqs; let i = index"
-            class="mb-4 border-2 border-black p-3 animate-fade-in"
+            class="mb-4 border-2 border-black p-3 animate-fade-in  "
             [style.animation-delay]="i * 200 + 'ms'"
           >
             <button
               (click)="toggleFaq(i)"
-              class="w-full flex justify-between items-center py-4 text-left focus:outline-none transition-colors duration-300"
+              class="w-full flex justify-between items-center py-4 text-left focus:outline-none transition-colors duration-300 cursor-pointer"
             >
               <span class="font-semibold text-xl md:text-2xl text-black pr-4">{{
                 faq.question

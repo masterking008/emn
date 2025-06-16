@@ -48,7 +48,7 @@
         <form [formGroup]="emailForm">
           <div class="mb-4">
             <label for="email" class="block text-white text-sm font-bold mb-2"
-              >EMAIL ADDRESS</label
+              >EMAIL ADDRESS <span class="text-red-500">*</span></label
             >
             <input
               type="email"
@@ -73,11 +73,8 @@
             </div>
           </div>
 
-          <div class="flex justify-between items-center mb-6">
-            <div *ngIf="otpSent && otpTimer > 0" class="text-white text-sm">
-              Resend OTP in {{ otpTimer }} seconds
-            </div>
-            <div *ngIf="showResendButton" class="text-white text-sm">
+          <div class="flex justify-end mb-6">
+            <!-- <div *ngIf="showResendButton" class="text-white text-sm mr-4 self-center">
               <button
                 type="button"
                 (click)="resendOtp()"
@@ -85,40 +82,18 @@
               >
                 Resend OTP
               </button>
-            </div>
+            </div> -->
             <button
               type="button"
               (click)="verifyEmail()"
-              class="bg-white text-black px-4 py-2 sharp hover:bg-gray-200 focus:outline-none transition-colors"
+              class="btn bg-white text-black px-4 py-3 sharp hover:bg-gray-200 focus:outline-none transition-colors"
               [disabled]="
                 isLoading ||
                 emailForm.get('email')?.invalid ||
                 (otpSent && otpTimer > 0)
               "
             >
-              <span *ngIf="isLoading">
-                <svg
-                  class="animate-spin -ml-1 mr-2 h-4 w-4 text-black inline-block"
-                  xmlns="http://www.w3.org/2000/svg"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                >
-                  <circle
-                    class="opacity-25"
-                    cx="12"
-                    cy="12"
-                    r="10"
-                    stroke="currentColor"
-                    stroke-width="4"
-                  ></circle>
-                  <path
-                    class="opacity-75"
-                    fill="currentColor"
-                    d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
-                  ></path>
-                </svg>
-                SENDING...
-              </span>
+              <span *ngIf="isLoading">SENDING...</span>
               <span *ngIf="!isLoading && !(otpSent && otpTimer > 0)">SEND OTP</span>
               <span *ngIf="!isLoading && otpSent && otpTimer > 0">WAIT {{otpTimer}}s</span>
             </button>
@@ -126,16 +101,9 @@
 
           <div class="mb-6" *ngIf="otpSent">
             <label for="otp" class="block text-white text-sm font-bold mb-2"
-              >ENTER OTP</label
+              >ENTER OTP <span class="text-red-500">*</span></label
             >
-            <input
-              type="text"
-              id="otp"
-              formControlName="otp"
-              class="w-full px-3 py-2 border border-white bg-black text-white sharp focus:outline-none"
-              placeholder="Enter 6-digit OTP"
-              maxlength="6"
-            />
+            <app-otp-input (otpChange)="onOtpChange($event)"></app-otp-input>
             <div
               *ngIf="
                 emailForm.get('otp')?.touched && emailForm.get('otp')?.invalid
@@ -157,7 +125,7 @@
             <button
               type="button"
               (click)="verifyOtp()"
-              class="bg-white text-black px-6 py-2 sharp hover:bg-gray-200 focus:outline-none transition-colors"
+              class="btn bg-white text-black px-6 py-3 sharp hover:bg-gray-200 focus:outline-none transition-colors"
               [disabled]="isLoading || emailForm.invalid"
             >
               <span *ngIf="isLoading">
@@ -203,7 +171,7 @@
             <label
               for="full_name"
               class="block text-white text-sm font-bold mb-2"
-              >FULL NAME</label
+              >FULL NAME <span class="text-red-500">*</span></label
             >
             <input
               type="text"
@@ -231,7 +199,7 @@
             <label
               for="phone_number"
               class="block text-white text-sm font-bold mb-2"
-              >PHONE NUMBER</label
+              >PHONE NUMBER <span class="text-red-500">*</span></label
             >
             <input
               type="tel"
@@ -245,6 +213,7 @@
               class="w-full px-3 py-2 border border-white bg-black text-white sharp focus:outline-none"
               placeholder="Enter 10-digit mobile number (e.g., 9876543210)"
               required
+              (keypress)="$event.charCode >= 48 && $event.charCode <= 57"
             />
             <div
               *ngIf="
@@ -268,7 +237,7 @@
 
           <div class="mb-4">
             <label class="block text-white text-sm font-bold mb-2"
-              >TYPE OF STAKEHOLDER</label
+              >TYPE OF STAKEHOLDER <span class="text-red-500">*</span></label
             >
             <div class="space-y-2">
               <div *ngFor="let type of stakeholderTypes">
@@ -320,9 +289,10 @@
             </div>
           </div>
 
+
           <div class="mb-4">
             <label for="state" class="block text-white text-sm font-bold mb-2"
-              >STATE/UT YOU'RE BASED IN</label
+              >STATE/UT YOU'RE BASED IN <span class="text-red-500">*</span></label
             >
             <select
               id="state"
@@ -347,11 +317,25 @@
             </div>
           </div>
 
+          
+          <div class="mb-4">
+            <label for="city" class="block text-white text-sm font-bold mb-2"
+              >CITY (OPTIONAL)</label
+            >
+            <input
+              type="text"
+              id="city"
+              formControlName="city"
+              class="w-full px-3 py-2 border border-white bg-black text-white sharp focus:outline-none"
+              placeholder="Enter your city"
+            />
+          </div>
+
           <div class="mb-4">
             <label
               for="organization_name"
               class="block text-white text-sm font-bold mb-2"
-              >NAME OF ORGANIZATION / VC FIRM / ANGEL NETWORK</label
+              >NAME OF ORGANIZATION / VC FIRM / ANGEL NETWORK <span class="text-red-500">*</span></label
             >
             <input
               type="text"
@@ -377,7 +361,7 @@
             <div class="mb-4">
             <label class="block text-white text-sm font-bold mb-2"
               >If you are associated with an organization, would you like to
-              explore an association with Eureka! as a partner?</label
+              explore an association with Eureka! as a partner? <span class="text-red-500">*</span></label
             >
             <div class="space-x-2">
               <label
@@ -420,7 +404,7 @@
             <label
               for="linkedin_url"
               class="block text-white text-sm font-bold mb-2"
-              >LinkedIn Profile URL</label
+              >LinkedIn Profile URL <span class="text-red-500">*</span></label
             >
             <input
               type="text"
@@ -454,7 +438,7 @@
             <button
               type="button"
               (click)="nextStep()"
-              class="bg-amber-900 text-black px-6 py-2 sharp hover:bg-gray-200 focus:outline-none transition-colors"
+              class="btn bg-white text-black px-6 py-2 sharp hover:bg-gray-200 focus:outline-none transition-colors"
             >
               Continue
             </button>
@@ -489,8 +473,8 @@
               <div
                 *ngIf="
                   mentorshipForm
-                    .get('offlineEventCities')
-                    ?.value.includes('Other')
+                    .get('networking_cities')
+                    ?.value.includes('other')
                 "
               >
                 <input
@@ -503,13 +487,13 @@
             </div>
             <div
               *ngIf="
-                mentorshipForm.get('offlineEventCities')?.touched &&
-                mentorshipForm.get('offlineEventCities')?.invalid
+                mentorshipForm.get('networking_cities')?.touched &&
+                mentorshipForm.get('networking_cities')?.invalid
               "
               class="text-red-500 text-sm mt-1"
             >
               <div
-                *ngIf="mentorshipForm.get('offlineEventCities')?.errors?.['required']"
+                *ngIf="mentorshipForm.get('networking_cities')?.errors?.['required']"
               >
                 Please select at least one option
               </div>
@@ -519,17 +503,18 @@
             <label
               for="preferred_sector_1"
               class="block text-white text-sm font-bold mb-2"
-              >Most Preferred Sector for Mentoring</label
+              >Most Preferred Sector for Mentoring <span class="text-red-500">*</span></label
             >
             <select
               id="preferred_sector_1"
               formControlName="preferred_sector_1"
               class="w-full px-3 py-2 border border-white bg-black text-white sharp focus:outline-none"
+              (change)="updateAvailableSectors()"
             >
               <option value="" disabled selected>
               Select your preferred sector
               </option>
-              <option *ngFor="let sector of sectors" [value]="sector">
+              <option *ngFor="let sector of availableSectors.sector1" [value]="sector">
               {{ getSectorDisplay(sector) }}
               </option>
             </select>
@@ -552,17 +537,21 @@
             <label
               for="preferred_sector_2"
               class="block text-white text-sm font-bold mb-2"
-              >Second Most Preferred Sector for Mentoring</label
+              [class.opacity-50]="!mentorshipForm.get('preferred_sector_1')?.value"
+              >Second Most Preferred Sector for Mentoring <span class="text-red-500">*</span></label
             >
             <select
               id="preferred_sector_2"
               formControlName="preferred_sector_2"
               class="w-full px-3 py-2 border border-white bg-black text-white sharp focus:outline-none"
+              [class.opacity-50]="!mentorshipForm.get('preferred_sector_1')?.value"
+              [disabled]="!mentorshipForm.get('preferred_sector_1')?.value"
+              (change)="updateAvailableSectors()"
             >
               <option value="" disabled selected>
               Select your second preferred sector
               </option>
-              <option *ngFor="let sector of sectors" [value]="sector">
+              <option *ngFor="let sector of availableSectors.sector2" [value]="sector">
               {{ getSectorDisplay(sector) }}
               </option>
             </select>
@@ -585,17 +574,20 @@
             <label
               for="preferred_sector_3"
               class="block text-white text-sm font-bold mb-2"
-              >Third Most Preferred Sector for Mentoring</label
+              [class.opacity-50]="!mentorshipForm.get('preferred_sector_2')?.value"
+              >Third Most Preferred Sector for Mentoring <span class="text-red-500">*</span></label
             >
             <select
               id="preferred_sector_3"
               formControlName="preferred_sector_3"
               class="w-full px-3 py-2 border border-white bg-black text-white sharp focus:outline-none"
+              [class.opacity-50]="!mentorshipForm.get('preferred_sector_2')?.value"
+              [disabled]="!mentorshipForm.get('preferred_sector_2')?.value"
             >
               <option value="" disabled selected>
               Select your third preferred sector
               </option>
-              <option *ngFor="let sector of sectors" [value]="sector">
+              <option *ngFor="let sector of availableSectors.sector3" [value]="sector">
               {{ getSectorDisplay(sector) }}
               </option>
             </select>
@@ -615,7 +607,7 @@
             </div>
           <div class="mb-4">
             <label class="block text-white text-sm font-bold mb-2"
-              >Are you comfortable mentoring startups in any sector?</label
+              >Are you comfortable mentoring startups in any sector? <span class="text-red-500">*</span></label
             >
             <div class="space-y-2">
               <label class="inline-flex items-center">
@@ -659,7 +651,7 @@
           <div class="mb-4">
             <label class="block text-white text-sm font-bold mb-2"
               >Would you like to be onboarded as a mentor on our Startup
-              Mentorship Portal?</label
+              Mentorship Portal? <span class="text-red-500">*</span></label
             >
             <div class="space-y-2">
               <label class="inline-flex items-center">
@@ -699,20 +691,42 @@
             </div>
           </div>
 
+ 
           <div class="mb-4">
-            <label class="block text-white text-sm font-bold mb-2"
-              >Upload Your High-Quality Image</label
-            >
-            <input
-              type="file"
-              accept="image/*"
-              (change)="onFileSelected($event)"
-              class="w-full px-3 py-2 border border-white bg-black text-white sharp focus:outline-none"
-            />
-            <p class="text-sm text-white mt-1">
-              Upload a professional-quality image (Max 10 MB)
-            </p>
-          </div>
+  <label class="block text-white text-sm font-bold mb-2"
+    >Upload Your High-Quality Image <span class="text-red-500">*</span></label
+  >
+  <div class="flex items-center space-x-4">
+    <div class="flex-1">
+      <label class="cursor-pointer w-full px-3 py-2 border border-white bg-black text-white sharp hover:bg-gray-900 flex items-center justify-center">
+        <span *ngIf="!imageUploading">{{ profileImageName || 'Choose Image' }}</span>
+        <span *ngIf="imageUploading" class="flex items-center">
+          <svg class="animate-spin -ml-1 mr-2 h-4 w-4 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+            <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+            <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+          </svg>
+          Uploading...
+        </span>
+        <input
+          type="file"
+          accept="image/*"
+          (change)="onFileSelected($event)"
+          class="hidden"
+        />
+      </label>
+      <p class="text-sm text-white mt-1">
+        Upload a professional-quality image (Max 10 MB)
+      </p>
+      <div *ngIf="!profileImagePreview && formSubmitted" class="text-red-500 text-sm mt-1">
+        Please upload your profile image
+      </div>
+    </div>
+    <div *ngIf="profileImagePreview" class="h-20 w-20 border border-white overflow-hidden">
+      <img [src]="profileImagePreview" alt="Profile preview" class="h-full w-full object-cover" />
+    </div>
+  </div>
+</div>
+
 
           <div class="mb-6">
             <label
@@ -740,7 +754,7 @@
             <button
               type="button"
               (click)="submitForm()"
-              class="bg-white text-black px-6 py-2 sharp hover:bg-gray-200 focus:outline-none transition-colors"
+              class="btn bg-white text-black px-6 py-3 sharp hover:bg-gray-200 focus:outline-none transition-colors"
               [disabled]="isLoading || mentorshipForm.invalid"
             >
               <span *ngIf="isLoading">

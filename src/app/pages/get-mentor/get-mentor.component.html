@@ -13,11 +13,59 @@
       <p class="text-xl md:text-3xl mb-8 text-center max-w-2xl">Our mentor matching platform is coming soon. Sign up to be notified!</p>
     </div>
   </div>
-  <a (click)="scrollToBottom()" class="arrow-down animate-bounce absolute z-50 bottom-2 left-1/2 cursor-pointer text-[50px] pr-2">
+        <a (click)="scrollToBottom()" class="arrow-down animate-bounce absolute z-50 bottom-2 left-1/2 transform -translate-x-1/2 cursor-pointer text-[50px] pr-2">
     <i class="fa-sharp fa-solid fa-arrow-down"></i>
   </a>
 </section>
 
+
+<section class="py-16 min-h-dvh section-light sharp relative overflow-hidden" #notified>
+  <video 
+    src="https://2k21.s3.ap-south-1.amazonaws.com/emn/Bottom.mp4"  
+    autoplay 
+    muted 
+    loop 
+    playsinline
+    class="absolute bottom-0 w-full object-cover z-0"
+    style="pointer-events: none;"
+  ></video>
+
+  <div class="absolute inset-0 bg-white/10 z-10"></div>
+  <div class="container mx-auto px-4 text-center relative z-20">
+    <div class="max-w-3xl mx-auto mb-12">
+      <h3 class="text-7xl md:text-9xl font-bold mb-6 text-black">BE THE FIRST TO KNOW</h3>
+      <p class="text-xl md:text-3xl text-black mb-6">
+        Sign up to be notified when our mentor matching platform launches.
+      </p>
+      <form class="max-w-md mx-auto" (ngSubmit)="submitNotifyForm()">
+        <div class="flex flex-col sm:flex-row gap-4">
+          <input 
+            type="email" 
+            placeholder="Enter your email" 
+            class="flex-grow px-4 py-2 border border-black sharp focus:outline-none"
+            [(ngModel)]="notifyEmail"
+            name="notifyEmail"
+            required
+          >
+          <button 
+            type="submit" 
+            class="bg-black text-white px-6 py-2 sharp border border-black hover:bg-white hover:text-black transition-colors"
+            [disabled]="isSubmitting"
+          >
+            <span *ngIf="!isSubmitting">NOTIFY ME</span>
+            <span *ngIf="isSubmitting">Sending...</span>
+          </button>
+        </div>
+      
+        <div *ngIf="notifySuccess" class="text-black-600 mt-2">{{responseDetail}}</div>
+        <div *ngIf="notifyError" class="text-red-600 mt-2">Something went wrong. Please try again.</div>
+      </form>
+    </div>
+  </div>
+</section>
+
+
+<!-- 
 <section class="py-16 section-light sharp">
   <div class="container mx-auto px-4 text-center">
     <div class="max-w-3xl mx-auto">
@@ -32,7 +80,7 @@
       </p>
     </div>
   </div>
-</section>
+</section> -->
 
 <section class="py-16 section-dark sharp">
   <div class="container mx-auto px-4">
@@ -76,47 +124,5 @@
   </div>
 </section>
       
-<section class="py-16 min-h-dvh section-light sharp relative overflow-hidden" #notified>
-  <video 
-    src="https://2k21.s3.ap-south-1.amazonaws.com/emn/Bottom.mp4"  
-    autoplay 
-    muted 
-    loop 
-    playsinline
-    preload="auto"
-    class="absolute inset-0 w-full h-full object-cover object-center z-0"
-  ></video>
-  <div class="absolute inset-0 bg-white/40 z-10"></div>
-  <div class="container mx-auto px-4 text-center relative z-20">
-    <div class="max-w-3xl mx-auto mb-12">
-      <h3 class="text-7xl md:text-9xl font-bold mb-6 text-black">BE THE FIRST TO KNOW</h3>
-      <p class="text-xl md:text-3xl text-black mb-6">
-        Sign up to be notified when our mentor matching platform launches.
-      </p>
-      <form class="max-w-md mx-auto" (ngSubmit)="submitNotifyForm()">
-        <div class="flex flex-col sm:flex-row gap-4">
-          <input 
-            type="email" 
-            placeholder="Enter your email" 
-            class="flex-grow px-4 py-2 border border-black sharp focus:outline-none"
-            [(ngModel)]="notifyEmail"
-            name="notifyEmail"
-            required
-          >
-          <button 
-            type="submit" 
-            class="bg-black text-white px-6 py-2 sharp border border-black hover:bg-white hover:text-black transition-colors"
-            [disabled]="isSubmitting"
-          >
-            <span *ngIf="!isSubmitting">NOTIFY ME</span>
-            <span *ngIf="isSubmitting">Sending...</span>
-          </button>
-        </div>
-        <div *ngIf="notifySuccess" class="text-black-600 mt-2">Thank you! You'll be notified.</div>
-        <div *ngIf="notifyError" class="text-red-600 mt-2">Something went wrong. Please try again.</div>
-      </form>
-    </div>
-  </div>
-</section>
 
 <app-footer></app-footer>

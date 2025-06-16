@@ -87,6 +87,16 @@ export class AuthService {
       );
   }
 
+  getAMentor(email: string): Observable<any> {
+    return this.http.post<any>(`${this.baseUrl}/get-a-mentor-email/`, { email })
+      .pipe(
+        catchError(error => {
+          console.error('Get a mentor error', error);
+          return of({ error: error.error?.message || 'Request failed' });
+        })
+      );
+  }
+
   logout(): void {
     localStorage.removeItem(this.tokenKey);
     this.currentUserSubject.next(null);

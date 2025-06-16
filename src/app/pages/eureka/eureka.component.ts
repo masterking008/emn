@@ -24,8 +24,9 @@ export class EurekaComponent implements OnInit {
   loadPastWinners(): void {
     this.apiService.getPastWinners().subscribe({
       next: (data) => {
-        this.startups = data;
-        console.log( )
+        // Sort winners by order field in descending order
+        this.startups = data.sort((a, b) => a.order - b.order);
+        console.log('Past winners loaded and sorted by order');
       },
       error: (error) => {
         console.error('Error fetching past winners:', error);

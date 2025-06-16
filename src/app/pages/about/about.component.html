@@ -1,6 +1,5 @@
 <app-navbar [forceDarkBg]="true"></app-navbar>
 
-
 <!-- About Page Hero Section with black background -->
 <!-- <section class="relative bg-black text-white min-h-screen flex items-center justify-center overflow-hidden sharp">
   <div class="absolute inset-0">
@@ -15,81 +14,112 @@
   </div>
 </section> -->
 
-
 <!-- What is Eureka! Section -->
-<section class="py-32 section-light min-h-screen sharp relative overflow-hidden">
+<section
+  class="py-32 section-light min-h-screen sharp relative overflow-hidden"
+>
   <!-- Video Background -->
-  <video 
-    src="https://2k21.s3.ap-south-1.amazonaws.com/emn/Hero.mp4"  
-    autoplay 
-    muted 
-    loop 
+  <video
+    src="https://2k21.s3.ap-south-1.amazonaws.com/emn/Hero.mp4"
+    autoplay
+    muted
+    loop
     playsinline
     preload="auto"
     class="absolute inset-0 w-full h-full object-cover z-0"
-    style="pointer-events: none;"
+    style="pointer-events: none"
   ></video>
   <!-- Overlay for readability (optional, can adjust opacity/color as needed) -->
   <div class="absolute inset-0 bg-white/90 z-10"></div>
   <div class="container mx-auto px-4 animate-fade-in relative z-20">
-    <div class="max-w-5xl mx-auto text-center mb-12">
+    <div class="max-w-7xl mx-auto text-center mb-12">
       <h2 class="text-7xl md:text-9xl font-bold">WHAT IS</h2>
-      <img src="assets/eureka_black.png" alt="EMN Logo" class="h-24 md:h-48 w-auto mx-auto mb-8 object-contain" draggable="false">
+      <img
+        src="assets/eureka_black.png"
+        alt="EMN Logo"
+        class="h-24 md:h-48 w-auto mx-auto mb-8 object-contain"
+        draggable="false"
+      />
       <p class="text-xl md:text-3xl text-black mb-8">
-        Eureka! is Asia's Largest Business Model Competition, providing a 360-degree holistic experience for startups, including mentorship, pitching, funding, and prizes. Eureka! 2025 aims to empower the next generation of entrepreneurs with resources, guidance, and a thriving ecosystem.
+        Eureka! is Asia's Largest Business Model Competition aimed to fast-track
+        the journey of an innovative idea to commercial success. Eureka! prides
+        itself on providing a 360-degree holistic experience over a 5-month
+        period, which offers a comprehensive experience that includes
+        personalized mentorship, opportunities for pitching and funding,
+        exciting cash prizes, and more. Eureka! provides a wide range of support
+        to help participants develop their ideas and bring them to market.
       </p>
     </div>
     <!-- Statistics Grid -->
-    <div class="grid grid-cols-2 gap-x-5 max-w-5xl mx-auto text-center">
-      <!-- First Stat -->
+
+    <!-- <div class="grid grid-cols-2 gap-x-5 max-w-5xl mx-auto text-center">
       <div class="border-black p-4">
-        <h1 class="text-4xl md:text-6xl font-bold text-black inline ">
-          <span>{{ entries | number }}</span>+
+        <h1 class="text-4xl md:text-6xl font-bold text-black inline">
+          <span>{{ entries | number }}</span
+          >+
         </h1>
-        <h1 class="text-3xl md:text-5xl outline-font block md:inline">Entries</h1>
+        <h1 class="text-3xl md:text-5xl outline-font block md:inline">
+          Entries
+        </h1>
       </div>
-      <!-- Second Stat -->
       <div class="p-4">
-        <h1 class="text-4xl md:text-6xl font-bold text-black inline ">
+        <h1 class="text-4xl md:text-6xl font-bold text-black inline">
           INR <span>{{ prizes }}</span> Cr+
         </h1>
-        <h1 class="text-3xl md:text-5xl outline-font block md:inline">Worth Prizes</h1>
+        <h1 class="text-3xl md:text-5xl outline-font block md:inline">
+          Worth Prizes
+        </h1>
       </div>
-      <!-- Vertical Divider -->
       <div class="border-t-2 border-black p-4">
-        <h1 class="text-4xl md:text-6xl font-bold text-black inline ">
-          <span>{{ mentors | number }}</span>+
+        <h1 class="text-4xl md:text-6xl font-bold text-black inline">
+          <span>{{ mentors | number }}</span
+          >+
         </h1>
-        <h1 class="text-3xl md:text-5xl outline-font block md:inline">Mentors</h1>
+        <h1 class="text-3xl md:text-5xl outline-font block md:inline">
+          Mentors
+        </h1>
       </div>
-      <!-- Fourth Stat -->
       <div class="border-t-2 p-4">
-        <h1 class="text-4xl md:text-6xl font-bold text-black inline ">
-          <span>{{ edition }}</span>th
+        <h1 class="text-4xl md:text-6xl font-bold text-black inline">
+          <span>{{ edition }}</span
+          >th
         </h1>
-        <h1 class="text-3xl md:text-5xl outline-font block md:inline">Edition</h1>
+        <h1 class="text-3xl md:text-5xl outline-font block md:inline">
+          Edition
+        </h1>
       </div>
-    </div>
+    </div> -->
   </div>
+
   <div class="blend w-full absolute bottom-0"></div>
 </section>
-    
+
 <!-- What is EMN Section -->
 <section class="py-16 section-light sharp">
   <div class="container mx-auto px-4">
-    <div class="max-w-7xl mx-auto text-center mb-12"> 
+    <div class="max-w-7xl mx-auto text-center mb-12">
       <h2 class="text-7xl md:text-9xl font-bold text-black">WHAT IS</h2>
-            <img src="assets/emn.png" alt="EMN Logo" class="h-48 md:h-64 w-auto mx-auto mb-4 object-contain invert" draggable="false">
-      
+      <img
+        src="assets/emn.png"
+        alt="EMN Logo"
+        class="h-48 md:h-64 w-auto mx-auto mb-4 object-contain invert"
+        draggable="false"
+      />
+
       <p class="text-xl md:text-3xl text-black mb-4">
-        Eureka! Mentorship Network (EMN) is a flagship initiative of Eureka! 2025, connecting early-stage startups with experienced mentors for strategic guidance, industry insights, and hands-on support. EMN's mission is to foster innovation, accelerate growth, and build scalable ventures through curated mentor-matching and personalized sessions.
+        Eureka! Mentorship Network (EMN) is a platform that connects early-stage
+        start-ups with experienced mentors to provide strategic guidance,
+        industry insights, and hands-on support. Through curated
+        mentor-matching, personalized sessions and domain-specific advice, EMN
+        empowers founders to navigate key challenges, refine their business
+        models and build scalable ventures.
       </p>
     </div>
   </div>
 </section>
-    
+
 <!-- Mission & Vision Section -->
-<section class="py-16 section-light sharp">
+<!-- <section class="py-16 section-light sharp">
   <div class="container mx-auto px-4">
     <div class="max-w-4xl mx-auto mb-12">
       <h2 class="text-7xl md:text-9xl font-bold mb-12 text-black text-center">MISSION & VISION</h2>
@@ -111,52 +141,68 @@
       </div>
     </div>
   </div>
-</section>
- 
+</section> -->
+
 <!-- Objectives of EMN Section -->
 <section class="py-16 section-light sharp relative overflow-hidden min-h-dvh">
   <!-- Video Background -->
-  <video 
-    src="https://2k21.s3.ap-south-1.amazonaws.com/emn/Bottom.mp4"  
-    autoplay 
-    muted 
-    loop 
+  <video
+    src="https://2k21.s3.ap-south-1.amazonaws.com/emn/Bottom.mp4"
+    autoplay
+    muted
+    loop
     playsinline
     class="absolute bottom-0 w-full object-cover z-0"
-    style="pointer-events: none;"
+    style="pointer-events: none"
   ></video>
 
   <!-- Overlay for readability -->
   <div class="absolute inset-0 z-10"></div>
   <div class="container mx-auto px-4 relative z-20">
     <div class="max-w-4xl mx-auto mb-12">
-      <h2 class="text-7xl md:text-9xl font-bold mb-8 text-black text-center">OBJECTIVES OF EMN</h2>
+      <h2 class="text-7xl md:text-9xl font-bold mb-8 text-black text-center">
+        OBJECTIVES OF EMN
+      </h2>
       <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-        <div class="bg-black/10 backdrop-blur-sm p-8 transform transition duration-300 relative">
-          <div class="absolute -top-2 -left-2 w-16 h-16 bg-black/20"></div>
+        <div
+          class="bg-black/10 backdrop-blur-sm p-8 transform transition duration-300 relative"
+        >
+          <div class="absolute -top-2 -right-2 w-16 h-16 bg-black/20"></div>
           <div class="relative z-10">
             <span class="text-5xl font-bold text-black mb-4 block">01</span>
-            <p class="text-xl text-black">Offer continuous guidance and support to early-stage startups from ideation to scaling.</p>
+            <p class="text-xl text-black">
+              Offer continuous guidance and support to early-stage startups from
+              ideation to scaling.
+            </p>
           </div>
         </div>
-        <div class="bg-black/10 backdrop-blur-sm p-8 relative transform transition duration-300">
+        <div
+          class="bg-black/10 backdrop-blur-sm p-8 relative transform transition duration-300"
+        >
           <div class="absolute -top-2 -right-2 w-16 h-16 bg-black/20"></div>
           <div class="relative z-10">
             <span class="text-5xl font-bold text-black mb-4 block">02</span>
-            <p class="text-xl text-black">Establish a structured, intelligent platform for seamless mentor–startup matchmaking across industries.</p>
+            <p class="text-xl text-black">
+              Establish a structured, intelligent platform for seamless
+              mentor–startup matchmaking across industries.
+            </p>
           </div>
         </div>
-        <div class="bg-black/10 backdrop-blur-sm p-8 transform transition duration-300 relative">
-          <div class="absolute -bottom-2 -right-2 w-16 h-16 bg-black/20"></div>
+        <div
+          class="bg-black/10 backdrop-blur-sm p-8 transform transition duration-300 relative"
+        >
+          <div class="absolute -top-2 -right-2 w-16 h-16 bg-black/20"></div>
           <div class="relative z-10">
             <span class="text-5xl font-bold text-black mb-4 block">03</span>
-            <p class="text-xl text-black">Implement a result-driven framework to track mentorship outcomes and measure startup progress.</p>
+            <p class="text-xl text-black">
+              Implement a result-driven framework to track mentorship outcomes
+              and measure startup progress.
+            </p>
           </div>
         </div>
       </div>
     </div>
   </div>
 </section>
-
 
 <app-footer></app-footer>

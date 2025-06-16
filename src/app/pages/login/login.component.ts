@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { RouterModule } from '@angular/router';
+import { RouterModule, Router } from '@angular/router';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { NavbarComponent } from '../../components/navbar.component';
 import { AuthService } from '../../services/auth.service';
@@ -21,7 +21,8 @@ export class LoginComponent {
   
   constructor(
     private fb: FormBuilder,
-    private authService: AuthService
+    private authService: AuthService,
+    private router: Router
   ) {
     this.loginForm = this.fb.group({
       email: ['', [Validators.required, Validators.email]],
@@ -53,7 +54,11 @@ export class LoginComponent {
           this.errorMessage = response.error;
         } else {
           // Navigate to appropriate dashboard based on user type
-          // this.router.navigate(['/dashboard']);
+          if (this.isStartupLogin) {
+            this.router.navigate(['/startup-dashboard']);
+          } else {
+            this.router.navigate(['/contact']);
+          }
         }
       },
       error => {
