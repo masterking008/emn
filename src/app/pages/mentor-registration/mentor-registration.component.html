@@ -320,7 +320,7 @@
           
           <div class="mb-4">
             <label for="city" class="block text-white text-sm font-bold mb-2"
-              >CITY (OPTIONAL)</label
+              >CITY<span class="text-red-500">*</span></label
             >
             <input
               type="text"
@@ -329,6 +329,19 @@
               class="w-full px-3 py-2 border border-white bg-black text-white sharp focus:outline-none"
               placeholder="Enter your city"
             />
+             <div
+              *ngIf="
+                basicDetailsForm.get('city')?.touched &&
+                basicDetailsForm.get('city')?.invalid
+              "
+              class="text-red-500 text-sm mt-1"
+            >
+              <div
+                *ngIf="basicDetailsForm.get('city')?.errors?.['required']"
+              >
+                This field is required
+              </div>
+            </div>
           </div>
 
           <div class="mb-4">

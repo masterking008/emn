@@ -4,15 +4,13 @@
 <section
   class="relative bg-black text-white min-h-screen flex items-center justify-center sharp"
 >
-
-  <div class="container mx-auto px-4 py-32 animate-fade-in">
-
-        <h2 class="text-7xl md:text-9xl font-bold text-center mb-12 text-white">
+  <div class="container mx-auto px-4 py-16 md:py-24 lg:py-32 animate-fade-in">
+    <h2 class="text-4xl sm:text-5xl md:text-7xl lg:text-9xl font-bold text-center mb-8 md:mb-12 text-white">
       MEET OUR TEAM
     </h2>
 
     <div
-      class="max-w-7xl mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 sm:gap-6"
+      class="max-w-7xl mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 px-4 sm:px-6 lg:px-8 justify-items-center"
     >
       <ng-container *ngIf="teamMembers; else loading">
         <app-contact-card
@@ -23,15 +21,17 @@
           [phone]="member.phone || ''"
           [linkedin]="member.linkedin || ''"
           [image]="member.profile_pic || ''"
+          class="w-full"
         >
         </app-contact-card>
       </ng-container>
       <ng-template #loading>
-        <div class="col-span-full flex justify-center items-center">
-          <div class="animate-spin rounded-full h-32 w-32 border-t-2 border-b-2 border-white"></div>
+        <div class="col-span-full flex justify-center items-center p-4">
+          <div class="animate-spin rounded-full h-16 w-16 sm:h-24 sm:w-24 md:h-32 md:w-32 border-t-2 border-b-2 border-white"></div>
         </div>
       </ng-template>
     </div>
   </div>
 </section>
 <app-footer></app-footer>
+

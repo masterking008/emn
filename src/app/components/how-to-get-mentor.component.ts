@@ -63,7 +63,7 @@ HOW TO GET A MENTOR?</h2>
                 <div class="bg-white rounded-full w-16 h-16 flex items-center justify-center shadow-lg z-10 relative">
                   <span class="text-black font-bold text-xl">4</span>
                 </div>
-                <p class="text-white font-bold text-lg mt-4 text-center w-48">MANAGE OUTCOMES</p>
+                <p class="text-white font-bold text-lg mt-4 text-center w-48">MEET WITH YOUR MENTOR</p>
               </div>
             </div>
           </div>
@@ -110,7 +110,7 @@ HOW TO GET A MENTOR?</h2>
                   <div class="bg-white rounded-full w-20 h-20 flex items-center justify-center shadow-lg z-10 relative">
                     <span class="text-black font-bold text-2xl">4</span>
                   </div>
-                  <p class="text-white font-bold text-xl mt-4 text-center w-48">MANAGE OUTCOMES</p>
+                  <p class="text-white font-bold text-xl mt-4 text-center w-48">MEET WITH YOUR MENTOR</p>
                 </div>
               </div>
               <!-- Connecting lines (Tablet) -->
@@ -169,7 +169,7 @@ HOW TO GET A MENTOR?</h2>
                   <div class="bg-white rounded-full w-20 h-20 flex items-center justify-center shadow-lg z-10 relative">
                     <span class="text-black font-bold text-2xl">4</span>
                   </div>
-                  <p class="text-white font-bold text-xl mt-4 text-center w-56">MANAGE OUTCOMES</p>
+                  <p class="text-white font-bold text-xl mt-4 text-center w-56">MEET WITH YOUR MENTOR</p>
                 </div>
               </div>
               <!-- Connecting lines (Desktop) -->

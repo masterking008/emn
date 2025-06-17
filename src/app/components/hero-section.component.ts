@@ -17,7 +17,7 @@ import Swal from 'sweetalert2';
     loop 
     playsinline
     preload="auto"
-    class="absolute bottom-70 lg:-bottom-50 w-full object-cover z-0 invert"
+    class="absolute bottom-0 lg:-bottom-50 w-full object-cover z-0 invert"
     style="pointer-events: none;"
   ></video>
 

@@ -160,7 +160,7 @@ export class MentorRegistrationComponent implements OnInit {
       stakeholder_types: [[], Validators.required],
       other_stakeholder_type: [''],
       state: ['', Validators.required],
-      city: [''],
+      city: ['', Validators.required],
       organization_name: ['', Validators.required],
       association_interest: ['', Validators.required],
       linkedin_url: ['', [Validators.required]],
@@ -570,6 +570,10 @@ export class MentorRegistrationComponent implements OnInit {
 
         if (this.basicDetailsForm.get('state')?.errors?.['required']) {
           errorMessages.push('State is required');
+        }
+        
+        if (this.basicDetailsForm.get('city')?.errors?.['required']) {
+          errorMessages.push('City is required');
         }
 
         if (

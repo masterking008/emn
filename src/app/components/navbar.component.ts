@@ -52,7 +52,7 @@ import { trigger, state, style, animate, transition } from '@angular/animations'
 
       <!-- Desktop menu -->
       <div
-        class="hidden lg:flex items-center justify-center space-x-2 sm:space-x-4"
+        class="hidden lg:flex items-center justify-center space-x-2 sm:space-x-4 pl-36"
       >
         <a
           routerLink="/"
