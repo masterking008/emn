@@ -26,7 +26,7 @@ import Swal from 'sweetalert2';
       <img src="assets/emn.png" alt="EMN Logo" class="h-64 lg:h-84 w-auto drop-shadow-lg object-contain" draggable="false"/>
       <div class="flex flex-wrap gap-4 justify-center">
         <a class="btn bg-white text-black hover:bg-gray-200 px-8 py-3 font-medium text-lg transition-colors shadow-lg sharp border border-white" (click)="login()">LOGIN</a>
-        <a routerLink="/become-mentor" class="btn bg-transparent backdrop-blur-2xl border border-white hover:bg-white hover:text-black px-8 py-3 font-medium text-lg transition-colors shadow-lg sharp">BECOME A MENTOR</a>
+        <!-- <a routerLink="/become-mentor" class="btn bg-transparent backdrop-blur-2xl border border-white hover:bg-white hover:text-black px-8 py-3 font-medium text-lg transition-colors shadow-lg sharp">BECOME A MENTOR</a> -->
       </div>
     </div>
   </div>

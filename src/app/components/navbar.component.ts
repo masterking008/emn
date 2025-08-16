@@ -95,13 +95,13 @@ import { trigger, state, style, animate, transition } from '@angular/animations'
 
       <!-- Authentication buttons -->
       <div class="hidden lg:flex items-center space-x-4">
-        <button
+        <!-- <button
           *ngIf="!authService.isLoggedIn()"
           routerLink="/mentor-registration"
           class="btn bg-white text-black hover:bg-gray-200 px-3 sm:px-4 py-1 sm:py-2 text-md sm:text-md font-medium transition-colors sharp border border-white cursor-pointer"
         >
           MENTOR REGISTRATION
-        </button>
+        </button> -->
         <!-- <button
           *ngIf="!authService.isLoggedIn()"
           routerLink="/login"
@@ -120,13 +120,13 @@ import { trigger, state, style, animate, transition } from '@angular/animations'
 
       <!-- Mobile menu button -->
       <div class="flex lg:hidden items-center">
-        <button
+        <!-- <button
           *ngIf="!authService.isLoggedIn()"
           routerLink="/mentor-registration"
           class="btn bg-white text-black hover:bg-gray-200 px-3 sm:px-4 py-3 sm:py-3 text-md sm:text-md font-medium transition-colors sharp border border-white cursor-pointer"
         >
           MENTOR REGISTRATION
-        </button>
+        </button> -->
         <!-- <button
           *ngIf="!authService.isLoggedIn()"
           routerLink="/login"
